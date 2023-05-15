@@ -11,6 +11,8 @@ gem 'dotenv-rails'
 
 gem 'letter_opener'
 
+gem 'table_print'
+
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"

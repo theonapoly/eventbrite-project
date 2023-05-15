@@ -14,7 +14,7 @@ User.destroy_all
 
 #Créations d'utilisateurs
 
-20.times do 
+5.times do 
     User.create!(
     email: Faker::Internet.email(domain: "yopmail.com"),
     encrypted_password: Faker::Internet.password,
@@ -22,3 +22,4 @@ User.destroy_all
     first_name: FFaker::NameFR.first_name,
     last_name: FFaker::NameFR.last_name
     )
+end
