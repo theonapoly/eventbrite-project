@@ -36,7 +36,7 @@ puts 'Les utilisateurs ont bien été créé.'
     description: Faker::Lorem.paragraph,
     price: Faker::Number.between(from: 1, to: 1000),
     duration: rand(1..100)*5,
-    administrator_id: User.all.sample.id
+    admin_id: User.all.sample.id
     )
 end
 
@@ -45,7 +45,10 @@ puts 'Les évènements ont bien été créé.'
 
 # Création des participations
 5.times do
-    Attendance.create(stripe_customer_id: Faker::Alphanumeric.alphanumeric(number: 10), attendee_id: User.all.sample.id, event_id: Event.all.sample.id)
+    Attendance.create(stripe_customer_id: Faker::Alphanumeric.alphanumeric(number: 10), 
+    participants_id: User.all.sample.id, 
+    event_id: Event.all.sample.id
+    )
   end
 
 puts 'Les participations ont bien été créé.'

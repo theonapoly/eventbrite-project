@@ -2,7 +2,7 @@ class Event < ApplicationRecord
 
     has_many :attendances
     has_many :participants, class_name: "User", through: :attendances
-    belongs_to :admin, class_name: "User", foreign_key: "event_id"
+    belongs_to :admin, class_name: "User"
 
     validate :start_date_cannot_be_in_the_past
     validates :duration, presence: true, numericality: { only_integer: true, greater_than: 0 }

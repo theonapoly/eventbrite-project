@@ -8,6 +8,8 @@ class AttendanceMailer < ApplicationMailer
       # On définit une variable @url qu'on utilisera dans la view d’e-mail
       @url = "http://monsite.fr/login"
        # C'est cet appel à mail() qui permet d'envoyer l’e-mail en définissant destinataire et sujet.
-      mail(to: @admin.email, subject: "Un nouveau participant s'est inscrit !")
+       if @admin && @admin.email
+        mail(to: @admin.email, subject: "Un nouveau participant s'est inscrit !")
+       end
     end
 end
