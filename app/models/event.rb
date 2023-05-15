@@ -2,14 +2,14 @@ class Event < ApplicationRecord
 
     has_many :attendances
     has_many :participants, class_name: "User", through: :attendances
-    belongs_to :admin, class_name: "user"
+    belongs_to :admin, class_name: "user", foreign_key: "event_id"
 
     validate :start_date_cannot_be_in_the_past
     validates :duration, presence: true, numericality: { only_integer: true, greater_than: 0 }
     validate :duration_is_multiple_of_5
     validates :title, presence: true, length: {minimum: 5, maximum: 140}
     validates :description, presence: true, length: {minimum: 20, maximum: 1000}
-    validates :price, presence: true, inclusion: {1..1000}
+    validates :price, presence:true, numericality: {in: 1..1000}
     validates :location, presence: true
 
 
