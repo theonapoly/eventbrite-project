@@ -8,9 +8,9 @@ class User < ApplicationRecord
   # Celle-ci ne fait qu'appeler le mailer UserMailer en lui faisant exécuter welcome_email avec, pour seule entrée, l'instance créée (d'où le self).
   after_create :welcome_send
 
-  has_many :attendances, foreign_key: 'participants_id'
-  has_many :events, through: :attendances, source: :event
-  has_many :events, foreign_key: 'admin_id'
+  has_many :attendances
+  has_many :events, through: :attendances
+  has_many :admins, class_name: 'Event', foreign_key: 'admin_id'
 
   validates :description, presence: true
   validates :first_name, presence: true
@@ -20,7 +20,7 @@ class User < ApplicationRecord
     UserMailer.welcome_email(self).deliver_now
   end
 
-  def participants?
+  def users?
     attendances.count > 0
   end
 
