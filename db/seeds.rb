@@ -9,7 +9,9 @@
 require 'faker'
 require 'ffaker'
 
+Attendance.destroy_all
 User.destroy_all
+Event.destroy_all
 
 puts 'Database réinitialisée..'
 
