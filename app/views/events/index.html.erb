@@ -1,3 +1,21 @@
+<style>
+  .card {
+    margin-bottom: 20px; /* Ajoute un espacement entre les cartes */
+  }
+  
+  .card-container {
+    margin: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-body {
+  max-height: 100px; /* Hauteur maximale de la description */
+  overflow-y: auto; /* Activation du défilement vertical automatique */
+}
+</style>
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Eventbrite</a>
@@ -12,28 +30,51 @@
         <li class="nav-item">
           <a class="nav-link" href="#">new page</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            S'inscrire/Se connecter
-          </a>
-          <ul class="dropdown-menu">
-            <li><%= link_to "S'inscrire", new_user_registration_path, class: "dropdown-item" %></li>
-            <li><%= link_to "Se connecter", new_user_session_path, class: "dropdown-item" %></li>
-          </ul>
-        </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Mon profil/Se déconnecter
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Mon profil</a></li>
-            <li><a class="dropdown-item" href="#">Se déconnecter</a></li>
-          </ul>
-        </li>
+        <!-- Dropdown pour utilisateur connecté -->
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Mon profil/Se déconnecter
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Mon profil", user_path(current_user), class: "dropdown-item" %></li>
+              <li><%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
+            </ul>
+          </li>
+        <!-- Dropdown pour utilisateur non connecté -->
+        <% else %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              S'inscrire/Se connecter
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "S'inscrire", new_user_registration_path, class: "dropdown-item" %></li>
+              <li><%= link_to "Se connecter", new_user_session_path, class: "dropdown-item" %></li>
+            </ul>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
 </nav>
+
+
+<div class="card-container">
+  <% @event.each do |event| %>
+    <div class="card" style="width: 20rem;">
+      <img class="card-img-top" src="<%= event.image_url %>" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><%= event.title %></h5>
+            <p class="card-text"><%= event.description %></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Lieu : <%= event.location %></li>
+        <li class="list-group-item">Date de début : <%= event.start_date.strftime("%d/%m/%Y") %></li>
+        <li class="list-group-item">Prix : <%= event.price %>€</li>
+        <li class="list-group-item">Durée : <%= event.duration %> minutes</li>
+      </ul>
+    </div>
+  <% end %>
+</div>
 
 

@@ -16,7 +16,7 @@ User.destroy_all
 puts 'Database réinitialisée..'
 
 #Créations d'utilisateurs
-5.times do 
+10.times do 
     User.create!(
     email: Faker::Internet.email(domain: "yopmail.com"),
     password: Faker::Internet.password,
@@ -30,14 +30,15 @@ puts 'Les utilisateurs ont bien été créé.'
 
 
 # Création des événements
-3.times do
+8.times do
     Event.create(
-    start_date: Faker::Time.between_dates(from: Date.today, to: Date.today + 30),
-    title: Faker::JapaneseMedia::OnePiece.quote,
-    location: Faker::JapaneseMedia::OnePiece.location,
-    description: Faker::Lorem.paragraph,
-    price: Faker::Number.between(from: 1, to: 1000),
-    duration: rand(1..100)*5,
+    image_url: Faker::LoremFlickr.image(size: "300x200", search_terms: ['music']),
+    start_date: Faker::Time.between_dates(from: Date.today, to: Date.today + 50),
+    title: Faker::Music.band,
+    location: FFaker::AddressFR.city,
+    description: FFaker::LoremFR.paragraphs,
+    price: Faker::Number.between(from: 20, to: 200),
+    duration: rand(30..120),
     admin_id: User.all.sample.id
     )
 end

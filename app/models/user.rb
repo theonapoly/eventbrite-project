@@ -12,10 +12,6 @@ class User < ApplicationRecord
   has_many :events, through: :attendances
   has_many :admins, class_name: 'Event', foreign_key: 'admin_id'
 
-  validates :description, presence: true
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-
   def welcome_send
     UserMailer.welcome_email(self).deliver_now
   end
